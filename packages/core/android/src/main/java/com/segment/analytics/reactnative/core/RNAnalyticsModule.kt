@@ -143,41 +143,43 @@ class RNAnalyticsModule(context: ReactApplicationContext): ReactContextBaseJavaM
                 .Builder(reactApplicationContext, writeKey)
                 .flushQueueSize(options.getInt("flushAt"))
 
-        if(options.getBoolean("recordScreenViews")) {
-            builder.recordScreenViews()
-        }
+        // if(options.getBoolean("recordScreenViews")) {
+        //     builder.recordScreenViews()
+        // }
 
 
-        if(options.getBoolean("trackAttributionData")) {
-            builder.trackAttributionInformation()
-        }
+        // if(options.getBoolean("trackAttributionData")) {
+        //     builder.trackAttributionInformation()
+        // }
 
-        if(options.hasKey("flushInterval")) {
-            builder.flushInterval(
-                options.getInt("flushInterval").toLong(),
-                TimeUnit.MILLISECONDS
-            )
-        }
+        // if(options.hasKey("flushInterval")) {
+        //     builder.flushInterval(
+        //         options.getInt("flushInterval").toLong(),
+        //         TimeUnit.MILLISECONDS
+        //     )
+        // }
 
-        if(options.getBoolean("debug")) {
-            builder.logLevel(Analytics.LogLevel.VERBOSE)
-        }
+        // if(options.getBoolean("debug")) {
+        //     builder.logLevel(Analytics.LogLevel.VERBOSE)
+        // }
 
-        if(options.getBoolean("trackAppLifecycleEvents")) {
-            builder.trackApplicationLifecycleEvents()
-        }
+        // if(options.getBoolean("trackAppLifecycleEvents")) {
+        //     builder.trackApplicationLifecycleEvents()
+        // }
 
         try {
             Analytics.setSingletonInstance(
                 RNAnalytics.buildWithIntegrations(builder)
             )
+        } catch(e2: IllegalStateException) {
+            // pass
         } catch(e: Exception) {
             return promise.reject("E_SEGMENT_ERROR", e)
         }
 
-        if(options.getBoolean("trackAppLifecycleEvents")) {
-            this.trackApplicationLifecycleEvents(writeKey)
-        }
+        // if(options.getBoolean("trackAppLifecycleEvents")) {
+        //     this.trackApplicationLifecycleEvents(writeKey)
+        // }
 
         singletonJsonConfig = json
         promise.resolve(null)
